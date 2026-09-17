@@ -1,43 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Famemart AI</title>
 <style>
-body{margin:0;font-family:Arial;background:#0f172a;color:#fff}
-header{padding:18px;text-align:center;background:#6d28d9}
-section{padding:20px}
-.card{background:#1e293b;padding:15px;border-radius:12px;margin:12px 0}
-.btn{display:block;background:#7c3aed;color:#fff;text-align:center;padding:14px;border-radius:10px;text-decoration:none}
-input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:none}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial;background:#0f172a;color:#fff}
+header{background:#6d28d9;padding:18px;text-align:center}
+section{padding:18px}
+.card{background:#1e293b;border-radius:12px;padding:14px;margin:10px 0}
+input{width:100%;padding:12px;border:none;border-radius:8px;margin:8px 0}
+button{width:100%;padding:13px;background:#7c3aed;color:#fff;border:none;border-radius:8px}
+#out{margin-top:12px;background:#111827;padding:12px;border-radius:8px}
+footer{text-align:center;padding:18px;color:#aaa}
 </style>
 </head>
 <body>
-<header><h2>🚀 Famemart AI</h2></header>
+
+<header>
+<h2>🚀 Famemart AI</h2>
+<p>Grow Your Social Media</p>
+</header>
 
 <section>
 <h3>Our Services</h3>
+
 <div class="card">📈 Instagram Followers</div>
 <div class="card">❤️ Likes & Comments</div>
-<div class="card">🎬 Reel Views</div>
+<div class="card">🎬 Reel & Video Views</div>
 
-<h3>AI Caption Tool</h3>
+<h3 style="margin-top:20px">AI Caption Generator</h3>
+
 <input id="topic" placeholder="Enter topic">
-<a class="btn" onclick="gen()">Generate</a>
-<p id="out"></p>
+<button onclick="gen()">Generate Caption</button>
 
-<h3>Upgrade Pro ₹49</h3>
-<p>UPI ID: famemart@upi</p>
-<input placeholder="Enter UTR Number">
-<a class="btn">Submit UTR</a>
+<div id="out">Your caption will appear here...</div>
+
+<h3 style="margin-top:22px">Upgrade Pro ₹49</h3>
+
+<div class="card">
+<b>UPI ID:</b><br>
+famemart@upi
+</div>
+
+<input placeholder="Enter 12 digit UTR">
+
+<button>Submit Payment</button>
+
 </section>
+
+<footer>© 2026 Famemart.in</footer>
 
 <script>
 function gen(){
 let t=document.getElementById("topic").value;
+if(t==""){
+alert("Enter topic");
+return;
+}
 document.getElementById("out").innerHTML=
-"🔥 Grow with "+t+"<br>#viral #instagram #famemart";
+"🔥 Boost your "+t+" today!<br><br>#viral #instagram #reels #famemart";
 }
 </script>
+
 </body>
 </html>
