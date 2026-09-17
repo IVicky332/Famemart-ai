@@ -115,6 +115,33 @@ document.getElementById("out").innerHTML =
   caption + "<br><br>" + randomTag;
 }
 </script>
+<script>
+function gen(){
+  const t = document.getElementById("topic").value.trim();
+  if(!t){
+    alert("Enter topic");
+    return;
+  }
+
+  const caps = [
+    `✨ ${t} is the glow-up everyone is talking about! 💖`,
+    `🔥 Ready to level up your ${t}? Start today! 🚀`,
+    `😍 Your ${t} deserves to go viral. Try this now!`,
+    `💯 The secret behind amazing ${t} starts here.`
+  ];
+
+  const tags = [
+    "#viral #trending #fyp",
+    "#explore #growth #socialmedia",
+    "#instagram #reels #creator"
+  ];
+
+  const caption = caps[Math.floor(Math.random()*caps.length)];
+  const randomTag = tags[Math.floor(Math.random()*tags.length)];
+
+  document.getElementById("out").innerHTML =
+    caption + "<br><br>" + randomTag;
+}
 </script>
 </body>
 </html>
