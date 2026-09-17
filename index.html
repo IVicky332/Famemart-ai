@@ -81,5 +81,28 @@ signInAnonymously(auth)
 .then(()=>alert("Login Success"))
 .catch(()=>alert("Firebase Error"));
 </script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+const app = initializeApp({
+  apiKey:"AIzaSyB2AHtSwRE_H5rDXiE4t7BBRZk1T4r2t8M",
+  authDomain:"famemart-ai-4e56c.firebaseapp.com",
+  projectId:"famemart-ai-4e56c",
+  appId:"1:957546967412:web:fe72fced469193e5403c21"
+});
+
+const db = getFirestore(app);
+
+window.submitUTR = async () => {
+  const utr = document.getElementById("utr").value;
+  await addDoc(collection(db,"payments"),{
+    utr: utr,
+    status:"pending",
+    time: Date.now()
+  });
+  alert("Payment submitted!");
+};
+</script>
 </body>
 </html>
