@@ -59,29 +59,18 @@ window.saveUTR = async () => {
 </script>
 
 <script>
-function gen(){
- const t=document.getElementById("topic").value.trim().toLowerCase();
- if(!t) return alert("Enter video title");
+async function gen() {
+  const title = document.getElementById("topic").value;
 
- let tags=["#viral","#fyp","#trending","#reels"];
+  const res = await fetch("/api/caption", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title })
+  });
 
- if(t.includes("car"))
-   tags.push("#cars","#supercar","#drift","#carlover");
-
- if(t.includes("gym")||t.includes("fitness"))
-   tags.push("#gym","#fitness","#workout","#bodybuilding");
-
- if(t.includes("food"))
-   tags.push("#food","#foodie","#recipe","#streetfood");
-
- if(t.includes("travel"))
-   tags.push("#travel","#wanderlust","#nature","#explore");
-
- if(t.includes("tech")||t.includes("ai"))
-   tags.push("#tech","#ai","#gadgets","#technology");
-
- document.getElementById("out").innerHTML =
-   `🔥 ${t} deserves to go viral!\n\n${tags.join(" ")}`;
+  const data = await res.json();
+  document.getElementById("out").innerHTML =
+    data.result.replace(/\n/g, "<br>");
 }
 </script>
 
