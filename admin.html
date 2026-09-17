@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Famemart Admin</title>
+<style>
+body{font-family:Arial;background:#0f172a;color:#fff;padding:20px}
+.card{background:#1e293b;padding:15px;border-radius:10px;margin:10px 0}
+button{background:#16a34a;color:#fff;border:none;padding:8px 12px;border-radius:6px}
+small{color:#cbd5e1}
+</style>
+</head>
+<body>
+
+<h2>💳 Famemart Admin</h2>
+<div id="list">Loading...</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getFirestore, collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+const app = initializeApp({
+  apiKey:"AIzaSyB2AHtSwRE_H5rDXiE4t7BBRZk1T4r2t8M",
+  authDomain:"famemart-ai-4e56c.firebaseapp.com",
+  projectId:"famemart-ai-4e56c",
+  appId:"1:957546967412:web:fe72fced469193e5403c21"
+});
+
+const db = getFirestore(app);
+const box = document.getElementById("list");
+
+async function load(){
+  box.innerHTML="";
+  const snap = await getDocs(collection(db,"payments"));
+  snap.forEach(d=>{
+    const x=d.data();
+    box.innerHTML += `
+      <div class="card">
+        <b>UTR:</b> ${x.utr}<br>
+        <small>Status: ${x.status||"pending"}</small><br><br>
+        <button onclick="approve('${d.id}')">Approve</button>
+      </div>`;
+  });
+}
+
+window.approve = async(id)=>{
+  await updateDoc(doc(db,"payments",id),{status:"approved"});
+  alert("Approved");
+  load();
+}
+
+load();
+</script>
+</body>
+</html>
