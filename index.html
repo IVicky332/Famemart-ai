@@ -103,7 +103,16 @@ function gen(){
 
   document.getElementById("out").innerHTML =
     c + "<br><br>#" + t.replace(/\s+/g,"") +
-    " #viral #instagram #reels #famemart";
+    const tags = [
+  "#viral #trending #fyp",
+  "#explore #growth #socialmedia",
+  "#instagram #reels #creator"
+];
+
+const randomTag = tags[Math.floor(Math.random()*tags.length)];
+
+document.getElementById("out").innerHTML =
+  caption + "<br><br>" + randomTag;
 }
 </script>
 </script>
