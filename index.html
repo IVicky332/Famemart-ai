@@ -60,26 +60,28 @@ window.saveUTR = async () => {
 
 <script>
 function gen(){
-  const t=document.getElementById("topic").value.trim();
-  if(!t) return alert("Enter topic");
+ const t=document.getElementById("topic").value.trim().toLowerCase();
+ if(!t) return alert("Enter video title");
 
-  const caps=[
-    `✨ ${t} is the glow-up everyone is talking about! 💖`,
-    `🔥 Ready to level up your ${t}? Start today! 🚀`,
-    `😍 Your ${t} deserves to go viral. Try this now!`,
-    `💯 The secret behind amazing ${t} starts here.`
-  ];
+ let tags=["#viral","#fyp","#trending","#reels"];
 
-  const tags=[
-    "#viral #trending #fyp",
-    "#explore #growth #socialmedia",
-    "#instagram #reels #creator"
-  ];
+ if(t.includes("car"))
+   tags.push("#cars","#supercar","#drift","#carlover");
 
-  const c=caps[Math.floor(Math.random()*caps.length)];
-  const tg=tags[Math.floor(Math.random()*tags.length)];
+ if(t.includes("gym")||t.includes("fitness"))
+   tags.push("#gym","#fitness","#workout","#bodybuilding");
 
-  document.getElementById("out").innerHTML=`${c}<br><br>${tg}`;
+ if(t.includes("food"))
+   tags.push("#food","#foodie","#recipe","#streetfood");
+
+ if(t.includes("travel"))
+   tags.push("#travel","#wanderlust","#nature","#explore");
+
+ if(t.includes("tech")||t.includes("ai"))
+   tags.push("#tech","#ai","#gadgets","#technology");
+
+ document.getElementById("out").innerHTML =
+   `🔥 ${t} deserves to go viral!\n\n${tags.join(" ")}`;
 }
 </script>
 
