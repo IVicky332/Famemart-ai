@@ -88,17 +88,24 @@ window.saveUTR = async () => {
 };
 </script>
 <script>
-function gen() {
+function gen(){
   const t = document.getElementById("topic").value.trim();
+  if(!t){ alert("Enter topic"); return; }
 
-  if (!t) {
-    alert("Enter topic");
-    return;
-  }
+  const caps = [
+    `✨ ${t} is the glow-up everyone is talking about! 💖`,
+    `🔥 Ready to level up your ${t}? Start today! 🚀`,
+    `😍 Your ${t} deserves to go viral. Try this now!`,
+    `💯 The secret behind amazing ${t} starts here.`
+  ];
+
+  const c = caps[Math.floor(Math.random()*caps.length)];
 
   document.getElementById("out").innerHTML =
-    `🔥 Boost your ${t} today!<br><br>#viral #instagram #reels #famemart`;
+    c + "<br><br>#" + t.replace(/\s+/g,"") +
+    " #viral #instagram #reels #famemart";
 }
+</script>
 </script>
 </body>
 </html>
