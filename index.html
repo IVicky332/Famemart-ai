@@ -97,6 +97,18 @@ window.saveUTR = async () => {
   document.getElementById("utr").value="";
 };
 </script>
+<script>
+function gen() {
+  const t = document.getElementById("topic").value.trim();
 
+  if (!t) {
+    alert("Enter topic");
+    return;
+  }
+
+  document.getElementById("out").innerHTML =
+    `🔥 Boost your ${t} today!<br><br>#viral #instagram #reels #famemart`;
+}
+</script>
 </body>
 </html>
