@@ -61,14 +61,11 @@ window.saveUTR = async () => {
 <script>
 async function gen(){
  const title=document.getElementById("topic").value;
- if(!title) return alert("Enter title");
-
- document.getElementById("out").innerHTML="Generating...";
 
  const res=await fetch("/api/caption",{
-   method:"POST",
-   headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({title})
+  method:"POST",
+  headers:{"Content-Type":"application/json"},
+  body:JSON.stringify({title})
  });
 
  const data=await res.json();
