@@ -103,5 +103,30 @@ window.submitUTR = async () => {
   alert("Payment submitted!");
 };
 </script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB2AHtSwRE_H5rDXiE4t7BBRZk1T4r2t8M",
+  authDomain: "famemart-ai-4e56c.firebaseapp.com",
+  projectId: "famemart-ai-4e56c",
+  storageBucket: "famemart-ai-4e56c.firebasestorage.app",
+  messagingSenderId: "957546967412",
+  appId: "1:957546967412:web:fe72fced469193e5403c21"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.saveUTR = async () => {
+  const utr = document.getElementById("utr").value;
+  await addDoc(collection(db, "payments"), {
+    utr,
+    time: new Date()
+  });
+  alert("UTR Submitted!");
+};
+</script>
 </body>
 </html>
