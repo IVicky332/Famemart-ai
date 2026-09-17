@@ -1,147 +1,87 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Famemart AI</title>
-
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial;background:#0f172a;color:#fff}
-header{background:#6d28d9;padding:18px;text-align:center}
-section{padding:18px}
-.card{background:#1e293b;border-radius:12px;padding:14px;margin:10px 0}
-input{width:100%;padding:12px;border:none;border-radius:8px;margin:8px 0}
-button{width:100%;padding:13px;background:#7c3aed;color:#fff;border:none;border-radius:8px}
-#out{margin-top:12px;background:#111827;padding:12px;border-radius:8px}
-footer{text-align:center;padding:18px;color:#aaa}
+body{font-family:Arial;background:#0f172a;color:#fff;padding:20px}
+.card{background:#1e293b;padding:12px;border-radius:10px;margin:10px 0}
+input,button{width:100%;padding:12px;margin:8px 0;border:none;border-radius:8px}
+button{background:#7c3aed;color:#fff}
+#out{background:#111827;padding:12px;border-radius:8px;margin-top:10px}
 </style>
 </head>
-
 <body>
 
-<header>
 <h2>🚀 Famemart AI</h2>
 <p>Grow Your Social Media</p>
-</header>
-
-<section>
-<h3>Our Services</h3>
 
 <div class="card">📈 Instagram Followers</div>
 <div class="card">❤️ Likes & Comments</div>
 <div class="card">🎬 Reel & Video Views</div>
 
-<h3 style="margin-top:20px">AI Caption Generator</h3>
-
+<h3>AI Caption Generator</h3>
 <input id="topic" placeholder="Enter topic">
 <button onclick="gen()">Generate Caption</button>
-
 <div id="out">Your caption will appear here...</div>
 
-<h3 style="margin-top:22px">Upgrade Pro ₹49</h3>
-
-<div class="card">
-<b>UPI ID:</b><br>
-famemart@upi
-</div>
-
+<h3>Upgrade Pro ₹49</h3>
+<p>UPI: <b>famemart@upi</b></p>
 <input id="utr" placeholder="Enter 12 digit UTR">
 <button onclick="saveUTR()">Submit Payment</button>
-
-</section>
-
-<footer>© 2026 Famemart.in</footer>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyB2AHtSwRE_H5rDXiE4t7BBRZk1T4r2t8M",
-  authDomain: "famemart-ai-4e56c.firebaseapp.com",
-  projectId: "famemart-ai-4e56c",
-  storageBucket: "famemart-ai-4e56c.firebasestorage.app",
-  messagingSenderId: "957546967412",
-  appId: "1:957546967412:web:fe72fced469193e5403c21"
-};
+const app = initializeApp({
+  apiKey:"AIzaSyB2AHtSwRE_H5rDXiE4t7BBRZk1T4r2t8M",
+  authDomain:"famemart-ai-4e56c.firebaseapp.com",
+  projectId:"famemart-ai-4e56c",
+  appId:"1:957546967412:web:fe72fced469193e5403c21"
+});
 
-const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 window.saveUTR = async () => {
-  const utr = document.getElementById("utr").value;
-
-  if(utr.length < 8){
-    alert("Enter valid UTR");
-    return;
-  }
+  const utr = document.getElementById("utr").value.trim();
+  if(utr.length<8) return alert("Enter valid UTR");
 
   await addDoc(collection(db,"payments"),{
-    utr: utr,
-    status: "pending",
-    time: Date.now()
+    utr,status:"pending",time:Date.now()
   });
 
   alert("Payment Submitted!");
   document.getElementById("utr").value="";
 };
 </script>
+
 <script>
 function gen(){
-  const t = document.getElementById("topic").value.trim();
-  if(!t){ alert("Enter topic"); return; }
+  const t=document.getElementById("topic").value.trim();
+  if(!t) return alert("Enter topic");
 
-  const caps = [
+  const caps=[
     `✨ ${t} is the glow-up everyone is talking about! 💖`,
     `🔥 Ready to level up your ${t}? Start today! 🚀`,
     `😍 Your ${t} deserves to go viral. Try this now!`,
     `💯 The secret behind amazing ${t} starts here.`
   ];
 
-  const c = caps[Math.floor(Math.random()*caps.length)];
-
-  document.getElementById("out").innerHTML =
-    c + "<br><br>#" + t.replace(/\s+/g,"") +
-    const tags = [
-  "#viral #trending #fyp",
-  "#explore #growth #socialmedia",
-  "#instagram #reels #creator"
-];
-
-const randomTag = tags[Math.floor(Math.random()*tags.length)];
-
-document.getElementById("out").innerHTML =
-  caption + "<br><br>" + randomTag;
-}
-</script>
-<script>
-function gen(){
-  const t = document.getElementById("topic").value.trim();
-  if(!t){
-    alert("Enter topic");
-    return;
-  }
-
-  const caps = [
-    `✨ ${t} is the glow-up everyone is talking about! 💖`,
-    `🔥 Ready to level up your ${t}? Start today! 🚀`,
-    `😍 Your ${t} deserves to go viral. Try this now!`,
-    `💯 The secret behind amazing ${t} starts here.`
-  ];
-
-  const tags = [
+  const tags=[
     "#viral #trending #fyp",
     "#explore #growth #socialmedia",
     "#instagram #reels #creator"
   ];
 
-  const caption = caps[Math.floor(Math.random()*caps.length)];
-  const randomTag = tags[Math.floor(Math.random()*tags.length)];
+  const c=caps[Math.floor(Math.random()*caps.length)];
+  const tg=tags[Math.floor(Math.random()*tags.length)];
 
-  document.getElementById("out").innerHTML =
-    caption + "<br><br>" + randomTag;
+  document.getElementById("out").innerHTML=`${c}<br><br>${tg}`;
 }
 </script>
+
 </body>
 </html>
