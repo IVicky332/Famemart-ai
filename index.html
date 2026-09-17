@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Famemart AI</title>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Arial;background:#0f172a;color:#fff}
@@ -16,6 +17,7 @@ button{width:100%;padding:13px;background:#7c3aed;color:#fff;border:none;border-
 footer{text-align:center;padding:18px;color:#aaa}
 </style>
 </head>
+
 <body>
 
 <header>
@@ -44,8 +46,8 @@ footer{text-align:center;padding:18px;color:#aaa}
 famemart@upi
 </div>
 
-<input id="utr" placeholder="12 digit UTR">
-<button onclick="submitUTR()">Submit Payment</button>
+<input id="utr" placeholder="Enter 12 digit UTR">
+<button onclick="saveUTR()">Submit Payment</button>
 
 </section>
 
@@ -53,56 +55,14 @@ famemart@upi
 
 <script>
 function gen(){
-let t=document.getElementById("topic").value;
-if(t==""){
-alert("Enter topic");
-return;
-}
-document.getElementById("out").innerHTML=
-"🔥 Boost your "+t+" today!<br><br>#viral #instagram #reels #famemart";
+ let t=document.getElementById("topic").value;
+ if(t==""){ alert("Enter topic"); return; }
+
+ document.getElementById("out").innerHTML=
+ "🔥 Boost your "+t+" today!<br><br>#viral #instagram #reels #famemart";
 }
 </script>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
 
-const firebaseConfig = {
-  apiKey:"PASTE_API_KEY",
-  authDomain:"PASTE_AUTH_DOMAIN",
-  projectId:"PASTE_PROJECT_ID",
-  appId:"PASTE_APP_ID"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-signInAnonymously(auth)
-.then(()=>alert("Login Success"))
-.catch(()=>alert("Firebase Error"));
-</script>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
-import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
-
-const app = initializeApp({
-  apiKey:"AIzaSyB2AHtSwRE_H5rDXiE4t7BBRZk1T4r2t8M",
-  authDomain:"famemart-ai-4e56c.firebaseapp.com",
-  projectId:"famemart-ai-4e56c",
-  appId:"1:957546967412:web:fe72fced469193e5403c21"
-});
-
-const db = getFirestore(app);
-
-window.submitUTR = async () => {
-  const utr = document.getElementById("utr").value;
-  await addDoc(collection(db,"payments"),{
-    utr: utr,
-    status:"pending",
-    time: Date.now()
-  });
-  alert("Payment submitted!");
-};
-</script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
@@ -121,12 +81,22 @@ const db = getFirestore(app);
 
 window.saveUTR = async () => {
   const utr = document.getElementById("utr").value;
-  await addDoc(collection(db, "payments"), {
-    utr,
-    time: new Date()
+
+  if(utr.length < 8){
+    alert("Enter valid UTR");
+    return;
+  }
+
+  await addDoc(collection(db,"payments"),{
+    utr: utr,
+    status: "pending",
+    time: Date.now()
   });
-  alert("UTR Submitted!");
+
+  alert("Payment Submitted!");
+  document.getElementById("utr").value="";
 };
 </script>
+
 </body>
 </html>
